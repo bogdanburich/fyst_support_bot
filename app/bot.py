@@ -1,6 +1,8 @@
 import logging
+import sys
 
-from config import ERRORS, MESSAGE_DELAY, MESSAGES, TICKET_MIN_LENGTH, TOKEN
+from config import (BOT_TOKEN, ERRORS, MESSAGE_DELAY, MESSAGES,
+                    TICKET_MIN_LENGTH)
 from filters import BASE_MESSAGE_FILTERS, SupportFilter
 from telegram import Update
 from telegram.ext import (Application, CommandHandler, ContextTypes,
@@ -19,11 +21,13 @@ async def create_ticket(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text = ERRORS['ticket_no_args']
         await context.bot.send_message(chat_id=chat_id, text=text)
         return
+
     ticket_name = ' '.join(context.args)
     if len(ticket_name) < TICKET_MIN_LENGTH:
         text = ERRORS['ticket_too_short']
         await context.bot.send_message(chat_id=chat_id, text=text)
         return
+
     text = MESSAGES['ticket']
     await context.bot.send_message(chat_id=chat_id,
                                    text=f'{text}: {ticket_name}')
@@ -62,9 +66,17 @@ async def support_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return
 
 
-if __name__ == '__main__':
+def check_creds() -> bool:
+    return all([
+        BOT_TOKEN
+    ])
 
-    application = Application.builder().token(TOKEN).build()
+
+def main():
+    if not check_creds():
+        sys.exit()
+
+    application = Application.builder().token(BOT_TOKEN).build()
 
     message_handler = MessageHandler(~SupportFilter()
                                      & BASE_MESSAGE_FILTERS,
@@ -79,3 +91,7 @@ if __name__ == '__main__':
     application.add_handler(ticket_handler)
 
     application.run_polling()
+
+
+if __name__ == '__main__':
+    main()

@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-TOKEN = os.getenv('BOT_TOKEN')
+BOT_TOKEN = os.getenv('BOT_TOKEN')
 
 MESSAGES = {
     'wait': 'We\'ve got your request, please wait for a while',
@@ -17,6 +17,6 @@ ERRORS = {
     'ticket_too_short': 'The ticket name must be at least 10 characters long'
 }
 
-MESSAGE_DELAY = 5
+MESSAGE_DELAY = 30
 
 TICKET_MIN_LENGTH = 10
