@@ -2,10 +2,10 @@ import os
 import logging
 from telegram import Update
 
-from telegram.ext import Application, ContextTypes, CommandHandler, MessageHandler, filters
+from telegram.ext import Application, ContextTypes, CommandHandler, MessageHandler
 
 from filters import SupportFilter, BASE_MESSAGE_FILTERS
-from config import MESSAGES, MESSAGE_DELAY, TOKEN
+from config import MESSAGES, MESSAGE_DELAY, TOKEN, ERRORS, TICKET_MIN_LENGTH
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -14,10 +14,19 @@ logging.basicConfig(
 
 
 async def create_ticket(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    # add bitrix client
+    # add ticket to bitrix
     chat_id = update.message.chat_id
+    if not context.args:
+        text = ERRORS['ticket_no_args']
+        await context.bot.send_message(chat_id=chat_id, text=text)
+        return
+    ticket_name = ' '.join(context.args)
+    if len(ticket_name) < TICKET_MIN_LENGTH:
+        text = ERRORS['ticket_too_short']
+        await context.bot.send_message(chat_id=chat_id, text=text)
+        return
     text = MESSAGES['ticket']
-    await context.bot.send_message(chat_id=chat_id, text=text)
+    await context.bot.send_message(chat_id=chat_id, text=f'{text}: {ticket_name}')
     return
 
 async def get_jobs(chat_id: int, context: ContextTypes.DEFAULT_TYPE): 
