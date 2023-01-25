@@ -2,10 +2,15 @@ anyio==3.6.2
 APScheduler==3.9.1.post1
 backports.zoneinfo==0.2.1
 certifi==2022.12.7
+flake8==6.0.0
 h11==0.14.0
 httpcore==0.16.3
 httpx==0.23.3
 idna==3.4
+isort==5.11.4
+mccabe==0.7.0
+pycodestyle==2.10.0
+pyflakes==3.0.1
 python-dotenv==0.21.1
 python-telegram-bot==20.0
 pytz==2022.7.1
