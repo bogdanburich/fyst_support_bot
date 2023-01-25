@@ -1,4 +1,5 @@
 import os
+
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -11,7 +12,8 @@ MESSAGES = {
 }
 
 ERRORS = {
-    'ticket_no_args': 'Please, specify the ticket name, for example: /ticket My ticket',
+    'ticket_no_args': ('Please, specify the ticket name, for example: /ticket '
+                       'My ticket'),
     'ticket_too_short': 'The ticket name must be at least 10 characters long'
 }
 

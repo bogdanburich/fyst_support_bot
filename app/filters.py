@@ -16,4 +16,6 @@ class SupportFilter(filters.MessageFilter):
         return username.endswith(SUPPORT_POSTFIX)
 
 
-BASE_MESSAGE_FILTERS = (~filters.COMMAND) & ~(filters.UpdateType.EDITED_MESSAGE) & MessageFilter()
+BASE_MESSAGE_FILTERS = (~filters.COMMAND
+                        & ~filters.UpdateType.EDITED_MESSAGE
+                        & MessageFilter())
