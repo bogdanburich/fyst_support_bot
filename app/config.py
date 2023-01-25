@@ -10,4 +10,4 @@ MESSAGES = {
     'ticket': 'The ticket has been created successfully'
 }
 
-MESSAGE_DELAY = 30
+MESSAGE_DELAY = 5
