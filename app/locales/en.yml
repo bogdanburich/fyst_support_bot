@@ -1,0 +1,5 @@
+en:
+  wait_message: We've got your request, please wait for a while
+  ticket_created: The ticket "%{ticket_name}" has been created successfully
+  ticket_no_args: Please, specify the ticket name, for example /ticket My awesome ticket
+  ticket_too_short: The ticket name must be at least 10 characters long
