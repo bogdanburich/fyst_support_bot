@@ -2,13 +2,12 @@ import logging
 import sys
 
 import i18n
+from config import BASE_DIR, BOT_TOKEN, MESSAGE_DELAY, TICKET_MIN_LENGTH
+from filters import BASE_MESSAGE_FILTERS, SupportFilter
 from telegram import Update
 from telegram.ext import (Application, CommandHandler, ContextTypes,
                           MessageHandler)
-
-from config import BASE_DIR, BOT_TOKEN, MESSAGE_DELAY, TICKET_MIN_LENGTH
-from filters import BASE_MESSAGE_FILTERS, SupportFilter
-from utils import set_locale, get_jobs
+from utils import get_jobs, set_locale
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
